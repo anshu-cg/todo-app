@@ -6,6 +6,8 @@ kotlin-version = "2.1.0"
 ktor-version = "3.0.3"
 logback-version = "1.4.14"
 postgres-version = "42.7.5"
+dagger = "2.52"
+kotlin = "2.1.0"
 
 [libraries]
 ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor-version" }
@@ -24,8 +26,11 @@ ktor-server-test-host = { module = "io.ktor:ktor-server-test-host", version.ref 
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin-version" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation-jvm", version.ref = "ktor-version" }
 exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed-version" }
+dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
+dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
 
 [plugins]
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-version" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor-version" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-version" }

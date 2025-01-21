@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ktor)
     alias(libs.plugins.kotlin.plugin.serialization)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 group = "com.example"
@@ -34,6 +35,8 @@ dependencies {
     implementation(libs.ktor.server.config.yaml)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
-//    testImplementation(libs.ktor.client.content.negotiation)
+    testImplementation(libs.ktor.client.content.negotiation)
     implementation(libs.exposed.dao)
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
 }
