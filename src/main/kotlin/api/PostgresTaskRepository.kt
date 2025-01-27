@@ -14,12 +14,6 @@ class PostgresTaskRepository : TaskRepository {
         TaskDAO.all().map(::daoToModel)
     }
 
-    override suspend fun tasksByPriority(priority: String): List<Task> = suspendTransaction {
-        TaskDAO
-            .find { (TaskTable.priority eq priority.toString()) }
-            .map(::daoToModel)
-    }
-
     override suspend fun taskByName(name: String): Task? = suspendTransaction {
         TaskDAO
             .find { (TaskTable.name eq name) }
@@ -41,5 +35,14 @@ class PostgresTaskRepository : TaskRepository {
             TaskTable.name eq name
         }
         rowsDeleted == 1
+    }
+
+    override suspend fun updateTask(name: String, updatedTask: Task): Task? = suspendTransaction {
+        val taskToUpdate = TaskDAO.find { TaskTable.name eq name }.firstOrNull()
+        taskToUpdate?.apply {
+            description = updatedTask.description
+            priority = updatedTask.priority.toString()
+        }
+        taskToUpdate?.let { daoToModel(it) }
     }
 }

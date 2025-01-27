@@ -62,25 +62,20 @@ fun Application.configureRouting(repository: TaskRepository) {
             put("/{taskName}") {
                 val name = call.parameters["taskName"]
                 if (name == null) {
-                    call.respond(HttpStatusCode.BadRequest, "Name is required")
+                    call.respond(HttpStatusCode.BadRequest, "Task name is required")
                     return@put
                 }
-                val task = repository.taskByName(name)
-                if(task == null) {
-                    call.respond(HttpStatusCode.NotFound, "Task not found")
+                val updatedTask = try {
+                    call.receive<Task>()
+                } catch (ex: Exception) {
+                    call.respond(HttpStatusCode.BadRequest, "Invalid task data")
                     return@put
                 }
-                try{
-                    val updatedTask=call.receive<Task>()
-                    if(updatedTask.name!=name){
-                        call.respond(HttpStatusCode.BadRequest, "Task name mismatch")
-                        return@put
-                    }
-                    repository.removeTask(name)
-                    repository.addTask(updatedTask)
-                    call.respond(HttpStatusCode.OK, "Task updated successfully")
-                }catch (e: Exception) {
-                    call.respond(HttpStatusCode.BadRequest, "Invalid request: ${e.message}")
+                val task = repository.updateTask(name, updatedTask)
+                if (task != null) {
+                    call.respond(HttpStatusCode.OK, task)
+                } else {
+                    call.respond(HttpStatusCode.NotFound, "Task with name $name not found")
                 }
             }
         }
