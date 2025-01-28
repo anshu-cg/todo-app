@@ -39,4 +39,14 @@ dependencies {
     implementation(libs.exposed.dao)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+    testImplementation(libs.ktor.server.test.host) // Ktor test host
+    testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.ktor.client.content.negotiation)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk)
 }
+
+//tasks.test {
+//    useJUnitPlatform()
+//    jvmArgs = listOf('-Dnet.bytebuddy.experimental=true')
+//}

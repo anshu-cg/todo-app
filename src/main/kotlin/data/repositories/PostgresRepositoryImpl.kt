@@ -1,15 +1,14 @@
-package com.example.api
+package com.example.data.repositories
 
 import com.example.data.TaskDAO
 import com.example.data.TaskTable
 import com.example.data.daoToModel
 import com.example.data.suspendTransaction
 import com.example.domain.Task
-import com.example.domain.TaskRepository
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.deleteWhere
 
-class PostgresTaskRepository : TaskRepository {
+class PostgresRepositoryImpl : PostgresRepository {
     override suspend fun allTasks(): List<Task> = suspendTransaction {
         TaskDAO.all().map(::daoToModel)
     }
