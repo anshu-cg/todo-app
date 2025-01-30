@@ -2,7 +2,7 @@ package com.example.data
 
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.dao.id.IntIdTable
-import com.example.domain.Task
+import com.example.domain.entities.Task
 import org.jetbrains.exposed.sql.Transaction
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.*
@@ -12,7 +12,6 @@ object TaskTable : IntIdTable("task") {
     val description = varchar("description", 50)
     val priority = varchar("priority", 50)
 }
-
 
 suspend fun <T> suspendTransaction(block: Transaction.() -> T): T =
     newSuspendedTransaction(Dispatchers.IO, statement = block)

@@ -1,5 +1,7 @@
 package com.example.domain
 
+import com.example.domain.entities.Task
+import com.example.domain.repositories.TaskRepository
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

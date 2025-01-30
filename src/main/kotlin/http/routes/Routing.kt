@@ -11,22 +11,11 @@ fun Application.configureRouting(httpComponent: HttpComponent) {
             call.respondText("Welcome to todo App")
         }
         route("/tasks") {
-            get {
-                httpComponent.allTasks(call)
-            }
-            get("{id}") {
-                httpComponent.taskByName(call)
-            }
-            post {
-                httpComponent.addTask(call)
-            }
-            delete("{taskName}") {
-                httpComponent.removeTask(call)
-            }
-            put("{taskName}") {
-                httpComponent.updateTask(call)
-            }
+            get { httpComponent.allTasksService.allTasks(call) }
+            get("{taskName}") { httpComponent.taskByNameService.taskByName(call) }
+            post { httpComponent.addTaskService.addTask(call) }
+            delete("{taskName}") { httpComponent.removeTaskService.removeTask(call) }
+            put("{taskName}") { httpComponent.updateTaskService.updateTask(call) }
         }
-
     }
 }

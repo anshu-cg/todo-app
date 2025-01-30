@@ -1,4 +1,6 @@
-package com.example.domain
+package com.example.domain.repositories
+
+import com.example.domain.entities.Task
 
 interface TaskRepository {
     suspend fun allTasks(): List<Task>

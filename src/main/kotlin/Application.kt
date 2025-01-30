@@ -3,7 +3,7 @@ package com.example
 import com.example.data.configureDatabases
 import com.example.http.routes.configureRouting
 import io.ktor.server.application.*
-import com.example.di.DaggerAppComponent
+import com.example.http.components.DaggerHttpComponent
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.plugins.contentnegotiation.*
 
@@ -18,10 +18,9 @@ fun main(args: Array<String>) {
 }
 
 fun Application.module() {
-    val appComponent= DaggerAppComponent.create()
-    val repository=appComponent.httpComponent()
+    val httpComponent= DaggerHttpComponent.create()
 
     configureSerialization()
     configureDatabases()
-    configureRouting(repository)
+    configureRouting(httpComponent)
 }

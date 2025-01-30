@@ -1,11 +1,8 @@
 package com.example.di
 
-import com.example.api.TodoApi
+import com.example.api.mappers.TaskMapper
 import com.example.data.repositories.PostgresRepository
-import com.example.data.repositories.PostgresRepositoryImpl
-import com.example.domain.TaskRepository
-import com.example.domain.TaskRepositoryImpl
-import com.example.http.components.HttpComponent
+import com.example.domain.repositories.TaskRepository
 
 import dagger.Module
 import dagger.Provides
@@ -13,14 +10,12 @@ import dagger.Provides
 @Module
 class AppModule {
     @Provides
-    fun providePostgresRepository(): PostgresRepository = PostgresRepositoryImpl()
+    fun provideTaskRepository(postgresRepository: PostgresRepository): TaskRepository = postgresRepository
 
     @Provides
-    fun provideTaskRepository(postgresRepository: PostgresRepository): TaskRepository = TaskRepositoryImpl(postgresRepository)
+    fun providePostgresRepository(): PostgresRepository = PostgresRepository()
 
     @Provides
-    fun provideHttpComponent(todoApi: TodoApi): HttpComponent = HttpComponent(todoApi)
-
-    @Provides
-    fun provideTodoApi(taskRepository: TaskRepository): TodoApi=TodoApi(taskRepository)
+    fun provideTaskMapper(): TaskMapper = TaskMapper()
 }
+

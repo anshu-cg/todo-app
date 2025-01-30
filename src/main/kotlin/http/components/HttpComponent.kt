@@ -1,12 +1,15 @@
 package com.example.http.components
 
-import com.example.api.TodoApi
-import io.ktor.server.application.*
+import com.example.di.AppModule
+import com.example.http.requests.*
+import dagger.Component
 
-class HttpComponent(private val todoApi: TodoApi) {
-    suspend fun allTasks(call: ApplicationCall) = todoApi.allTasks(call)
-    suspend fun taskByName(call: ApplicationCall) = todoApi.taskByName(call)
-    suspend fun addTask(call: ApplicationCall) = todoApi.addTask(call)
-    suspend fun removeTask(call: ApplicationCall) = todoApi.removeTask(call)
-    suspend fun updateTask(call: ApplicationCall) = todoApi.updateTask(call)
+@Component(modules = [AppModule::class])
+interface HttpComponent{
+    val allTasksService: AllTasksHttpRequest
+    val taskByNameService: TaskByNameHttpRequest
+    val addTaskService: AddTaskHttpRequest
+    val removeTaskService: RemoveTaskHttpRequest
+    val updateTaskService: UpdateTaskHttpRequest
+
 }
