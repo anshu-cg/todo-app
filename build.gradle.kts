@@ -34,19 +34,22 @@ dependencies {
     implementation(libs.logback.classic)
     implementation(libs.ktor.server.config.yaml)
     testImplementation(libs.ktor.server.test.host)
-    testImplementation(libs.kotlin.test.junit)
     testImplementation(libs.ktor.client.content.negotiation)
     implementation(libs.exposed.dao)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
-    testImplementation(libs.ktor.server.test.host) // Ktor test host
-    testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.ktor.client.content.negotiation)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockk)
+    testImplementation(libs.junitApi)
+    testImplementation(libs.junitEngine)
+    testImplementation(libs.kotlinxSerializationJson)
+    testImplementation(libs.kotlinTestJUnit5)
 }
 
-//tasks.test {
-//    useJUnitPlatform()
-//    jvmArgs = listOf('-Dnet.bytebuddy.experimental=true')
-//}
+tasks.test {
+    useJUnitPlatform()
+    jvmArgs = listOf("-XX:+EnableDynamicAgentLoading")
+
+}
